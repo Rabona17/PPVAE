@@ -9,7 +9,7 @@ from keras.preprocessing.text import Tokenizer
 from keras import regularizers
 from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint, Callback
 from keras.initializers import Ones, Zeros
-from myclass import DropConnect, TiedEmbeddingsTransposed, LayerNormalization, MH_GRU, Attention, Position_Embedding
+from myclass import TiedEmbeddingsTransposed, LayerNormalization, Attention, Position_Embedding
 
 import numpy as np
 import random
@@ -21,7 +21,7 @@ import keras.backend.tensorflow_backend as KTF
 import tensorflow as tf
 import keras.backend as K
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 config = tf.ConfigProto()
 config.gpu_options.allow_growth=True 
@@ -33,9 +33,9 @@ start_token = 2
 end_token = 3
 
 # dataset depends on your need
-train_path = 'your data'
-val_path = 'your data'
-test_path = 'your data'
+train_path = 'conditional_data/yelp/yelp/train.txt'
+val_path = 'conditional_data/yelp/yelp/valid.txt'
+test_path = 'conditional_data/yelp/yelp/test.txt'
 
 max_len = 17
 max_vocab = 10000
@@ -126,7 +126,7 @@ def padding(x,y,z):
     
     return x,y, z
     
-def train_generator(zhihu_data):
+def train_generator(data):
     x = []
     y = []
     z = []
